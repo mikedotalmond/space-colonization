@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Space Colonization</title>
+	<style>
+		body {
+			font-family: Monospace;
+			background-color: #f0f0f0;
+			margin: 0px;
+			overflow: hidden;
+		}
+		
+		.info{
+			position:absolute;
+			z-index:1;
+			left:0px;
+			top:0px;
+			margin:16px;
+			color:black;
+		}
+		.footer{
+			position:absolute;
+			z-index:1;
+			left:0px;
+			bottom:0px;
+			margin:16px;
+			color:black;
+		}
+		
+		a {color:black;}
+		.white a {
+			color:white;
+		}
+		
+		.white{ color:white!important; }
+		
+	</style>
+</head>
+<body>
+	<div class="info">
+		A Haxe implementation of the Space Colonization Algorithm - <a href="http://www.algorithmicbotany.org/papers/colonization.egwnp2007.html">paper</a> 
+		<br><br>
+		A direct port of <a href="https://github.com/nicknikolov/pex-space-colonization">this javascript library</a> by <a href="https://twitter.com/nicknikolov">Nick Nikolov</a>.
+		<br><br>
+		> try 
+	</div>
+	<div class="footer">
+		Code: <a href="https://github.com/mikedotalmond/space-colonization">github</a>
+		<br>
+		<a href="https://twitter.com/mikedotalmond">@mikedotalmond</a>
+		<br>
+	</div>
+	<div id="container"></div>
+	
+	<script src="three.min.js"></script>
+	<script src="main.js"></script>
+	
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-79499708-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>
