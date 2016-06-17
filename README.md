@@ -1,4 +1,4 @@
-# space-colonization
+# [space-colonization](https://mikedotalmond.github.io/space-colonization)
 
 A Haxe implementation of the Space Colonization Algorithm - [paper](http://www.algorithmicbotany.org/papers/colonization.egwnp2007.html)
 
