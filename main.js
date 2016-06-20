@@ -580,7 +580,7 @@ SpaceColonization.prototype = {
 			self.y += branchNextDir.y;
 			self.z += branchNextDir.z;
 			branchNextPos = self;
-			this.buds.push({ state : 0, position : branchNextPos, parentPos : parentPos, split : true});
+			this.buds.push({ state : 0, position : branchNextPos, direction : branchNextDir, parentPos : parentPos, split : true});
 			return true;
 		}
 		return false;
@@ -595,7 +595,7 @@ SpaceColonization.prototype = {
 			var bud = this.buds[i];
 			if(bud.state == 1) continue;
 			if(this.hormonesForBud[i].length == 0) {
-				if(bud.hormones != null) bud.hormones = [];
+				if(bud.hormones != null) bud.hormones = null;
 				bud.state++;
 				continue;
 			}
@@ -615,7 +615,7 @@ SpaceColonization.prototype = {
 			self1.z += nextDir.z;
 			nextPos = self1;
 			bud.state++;
-			this.buds.push({ state : 0, position : nextPos, parentPos : bud.position});
+			this.buds.push({ state : 0, position : nextPos, direction : nextDir, parentPos : bud.position});
 			bud.hormones = this.hormonesForBud[i].map(function(i1) {
 				return _g2.hormones[i1];
 			});
