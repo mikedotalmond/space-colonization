@@ -251,6 +251,7 @@ class SpaceColonization {
 			buds.push({
 				state: 0,
 				position: branchNextPos,
+				direction:branchNextDir,
 				parentPos: parentPos,
 				split: true
 			});
@@ -272,7 +273,7 @@ class SpaceColonization {
 			if (bud.state == 1) continue;
 			
 			if (hormonesForBud[i].length == 0) {
-				if (bud.hormones != null) bud.hormones = [];
+				if (bud.hormones != null) bud.hormones = null;
 				bud.state++;
 				continue;
 			}
@@ -283,11 +284,12 @@ class SpaceColonization {
 			var didSplit = splitBranch(budPos);
 			var nextDir = nextDirection(budPos, didSplit);
 			var nextPos = budPos + nextDir;
-
+			
 			bud.state++;
 			buds.push({
 				state:      0,
 				position:   nextPos,
+				direction:	nextDir,
 				parentPos:  bud.position
 			});
 			
