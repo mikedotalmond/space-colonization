@@ -227,7 +227,7 @@ Main3D.prototype = {
 		this.completeTime = 0;
 		var r;
 		if(Math.random() > .5) r = SpaceColonization.randomVec3; else r = SpaceColonization.randomSurfaceVec3;
-		var hCount = Std["int"](1000 + Math.random() * 1500);
+		var hCount = Std["int"](500 + Math.random() * 1000);
 		if(r == SpaceColonization.randomSurfaceVec3 && Math.random() > .5) {
 			var _g = [];
 			var _g1 = 0;
@@ -248,7 +248,7 @@ Main3D.prototype = {
 			this.config.viewDistance = .25 + Math.random() * 25;
 		}
 		this.config.budPositions[0] = r();
-		this.config.splitChance = .1 + Math.random() * Math.random() * .3;
+		this.config.splitChance = .1 + Math.random() * Math.random() * .2;
 		if(Math.random() > .5) this.config.growType = SCGrowType.NO_SPLIT; else this.config.growType = SCGrowType.SPLIT;
 		this.sc.restart(this.config);
 		this.scene.remove(this.lines);
@@ -381,6 +381,8 @@ SpaceColonization.prototype = {
 			var i = _g1++;
 			this.hormonesForBud.push([]);
 		}
+		var dz2 = this.options.deadZone * this.options.deadZone;
+		var vd2 = this.options.viewDistance * this.options.viewDistance;
 		var _g11 = 0;
 		var _g2 = this.hormones.length;
 		while(_g11 < _g2) {
@@ -388,79 +390,78 @@ SpaceColonization.prototype = {
 			var hormone = this.hormones[i1];
 			if(hormone.state != 0) continue;
 			var minDistIndex = -1;
-			var minDist = this.options.viewDistance;
+			var minDist = vd2;
 			var _g3 = 0;
 			var _g21 = this.buds.length;
 			while(_g3 < _g21) {
 				var j = _g3++;
 				var bud = this.buds[j];
 				if(bud.state > 0) continue;
-				var dist;
-				var b = bud.position;
-				var self = hormone.position;
+				var distSq;
 				var this1;
+				var b = bud.position;
 				var this2;
-				var self3 = self;
-				this2 = new hxmath_math_Vector3Default(self3.x,self3.y,self3.z);
-				var self2 = this2;
-				self2.x -= b.x;
-				self2.y -= b.y;
-				self2.z -= b.z;
-				this1 = self2;
-				var self1 = this1;
-				dist = Math.sqrt(self1.x * self1.x + self1.y * self1.y + self1.z * self1.z);
+				var self2 = hormone.position;
+				this2 = new hxmath_math_Vector3Default(self2.x,self2.y,self2.z);
+				var self1 = this2;
+				self1.x -= b.x;
+				self1.y -= b.y;
+				self1.z -= b.z;
+				this1 = self1;
+				var self = this1;
+				distSq = self.x * self.x + self.y * self.y + self.z * self.z;
 				if(bud.direction != null) {
 					var budPosDirNorm;
 					var this3;
-					var self5 = bud.direction;
-					this3 = new hxmath_math_Vector3Default(self5.x,self5.y,self5.z);
-					var self4 = this3;
+					var self4 = bud.direction;
+					this3 = new hxmath_math_Vector3Default(self4.x,self4.y,self4.z);
+					var self3 = this3;
 					var length;
-					var self6 = self4;
-					length = Math.sqrt(self6.x * self6.x + self6.y * self6.y + self6.z * self6.z);
+					var self5 = self3;
+					length = Math.sqrt(self5.x * self5.x + self5.y * self5.y + self5.z * self5.z);
 					if(length > 0.0) {
-						var self7 = self4;
-						self7.x /= length;
-						self7.y /= length;
-						self7.z /= length;
-						self7;
+						var self6 = self3;
+						self6.x /= length;
+						self6.y /= length;
+						self6.z /= length;
+						self6;
 					}
-					budPosDirNorm = self4;
+					budPosDirNorm = self3;
 					var hormPosNorm;
 					var this4;
 					var b1 = bud.position;
 					var this5;
-					var self10 = hormone.position;
-					this5 = new hxmath_math_Vector3Default(self10.x,self10.y,self10.z);
-					var self9 = this5;
-					self9.x -= b1.x;
-					self9.y -= b1.y;
-					self9.z -= b1.z;
-					this4 = self9;
-					var self8 = this4;
+					var self9 = hormone.position;
+					this5 = new hxmath_math_Vector3Default(self9.x,self9.y,self9.z);
+					var self8 = this5;
+					self8.x -= b1.x;
+					self8.y -= b1.y;
+					self8.z -= b1.z;
+					this4 = self8;
+					var self7 = this4;
 					var length1;
-					var self11 = self8;
-					length1 = Math.sqrt(self11.x * self11.x + self11.y * self11.y + self11.z * self11.z);
+					var self10 = self7;
+					length1 = Math.sqrt(self10.x * self10.x + self10.y * self10.y + self10.z * self10.z);
 					if(length1 > 0.0) {
-						var self12 = self8;
-						self12.x /= length1;
-						self12.y /= length1;
-						self12.z /= length1;
-						self12;
+						var self11 = self7;
+						self11.x /= length1;
+						self11.y /= length1;
+						self11.z /= length1;
+						self11;
 					}
-					hormPosNorm = self8;
+					hormPosNorm = self7;
 					var dot = budPosDirNorm.x * hormPosNorm.x + budPosDirNorm.y * hormPosNorm.y + budPosDirNorm.z * hormPosNorm.z;
 					var angle = Math.acos(dot);
 					if(angle > this.options.viewAngle * 2) continue;
 				}
-				if(dist < minDist) {
-					minDist = dist;
+				if(distSq < minDist) {
+					minDist = distSq;
 					minDistIndex = j;
 				}
 			}
 			if(minDistIndex == -1) continue;
 			this.hormonesForBud[minDistIndex].push(i1);
-			if(minDist < this.options.deadZone && minDistIndex != -1) hormone.state++;
+			if(minDist < dz2 && minDistIndex != -1) hormone.state++;
 		}
 	}
 	,calculateAverageVec: function(index) {
